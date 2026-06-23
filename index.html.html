@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Ani 💖</title>
+  <style>
+    * { box-sizing: border-box; font-family: "Poppins", Arial, sans-serif; }
+    body {
+      margin: 0; min-height: 100vh;
+      background: linear-gradient(135deg, #ffe1ec, #fff7fb, #e7f0ff);
+      display: flex; align-items: center; justify-content: center;
+      color: #3b2430; overflow-x: hidden; padding: 20px;
+    }
+    .card {
+      width: min(94vw, 620px); background: rgba(255,255,255,0.88);
+      border-radius: 30px; padding: 34px 26px; text-align: center;
+      box-shadow: 0 20px 60px rgba(160,80,130,0.22);
+      backdrop-filter: blur(10px); position: relative; z-index: 2;
+    }
+    h1 { font-size: clamp(2rem, 7vw, 3.1rem); margin: 0 0 12px; }
+    .subtitle { font-size: 1.1rem; line-height: 1.7; margin-bottom: 28px; }
+    .buttons { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 20px; }
+    button {
+      border: none; border-radius: 999px; padding: 15px 20px;
+      font-size: 1rem; cursor: pointer; background: #ff5fa2; color: white;
+      box-shadow: 0 10px 24px rgba(255,95,162,0.28);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button:hover { transform: scale(1.04); box-shadow: 0 14px 30px rgba(255,95,162,0.35); }
+    .soft { background: white; color: #3b2430; border: 2px solid #ffc4dc; }
+    .message {
+      margin-top: 26px; background: #fff3f8; border: 2px solid #ffd0e3;
+      border-radius: 22px; padding: 22px; font-size: 1.1rem;
+      line-height: 1.7; min-height: 120px; display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    .breathing {
+      margin: 22px auto 0; width: 110px; height: 110px; border-radius: 50%;
+      background: radial-gradient(circle, #ff7bb6, #ffd2e5);
+      animation: breathe 5s infinite ease-in-out; display: none;
+    }
+    .final { margin-top: 30px; font-weight: 600; font-size: 1.05rem; }
+    .heart {
+      position: fixed; bottom: -30px; font-size: 22px;
+      animation: floatUp 7s linear infinite; opacity: 0.6;
+      z-index: 1; pointer-events: none;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes breathe { 0%,100% { transform: scale(0.75); } 50% { transform: scale(1.2); } }
+    @keyframes floatUp { from { transform: translateY(0) rotate(0deg); opacity: 0.6; } to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+    @media (min-width: 600px) { .buttons { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>For Ani 💖</h1>
+    <p class="subtitle">
+      Hey love, take a deep breath.<br>
+      I know life can feel stressful sometimes, but I just want you to remember:
+      you are doing better than you think.
+    </p>
+
+    <div class="buttons">
+      <button onclick="showMessage('motivation')">I need motivation ✨</button>
+      <button onclick="showMessage('hug')">I need a hug 🤍</button>
+      <button onclick="showMessage('smile')">Make me smile 😊</button>
+      <button onclick="showMessage('calm')" class="soft">Help me calm down 🌙</button>
+      <button onclick="showMessage('proud')" class="soft">Remind me I’m doing well 🌷</button>
+      <button onclick="showMessage('love')">A message from you ❤️</button>
+    </div>
+
+    <div id="message" class="message"></div>
+    <div id="breathingCircle" class="breathing"></div>
+
+    <p class="final">No matter how stressful today gets, I am proud of you. Always. ❤️</p>
+  </div>
+
+  <script>
+    const messages = {
+      motivation: "Ani, you are stronger than this stressful day.<br><br>One step at a time is enough. You do not have to do everything perfectly. You just have to keep going, and I believe in you so much. 💖",
+      hug: "Come here, this is your virtual hug. 🤍<br><br>Imagine me holding you tight and reminding you that everything will be okay. You are safe, you are loved, and you are not alone.",
+      smile: "Reminder: someone is probably smiling right now just because you exist.<br><br>That someone is me. 😊 Your smile can make my whole day better.",
+      calm: "Breathe with the circle below.<br><br>Inhale slowly as it grows, exhale slowly as it gets smaller. You do not have to carry the whole world today. 🌙",
+      proud: "I know you have been working hard.<br><br>Even when you feel tired, even when things are difficult, I see your effort, and I am so proud of you. 🌷",
+      love: "Ani, I made this little page because I wanted to give you something you can open whenever your day feels heavy.<br><br>I hope it reminds you that you are loved, appreciated, and never alone. I love you. ❤️"
+    };
+
+    function showMessage(type) {
+      const messageBox = document.getElementById("message");
+      const circle = document.getElementById("breathingCircle");
+      messageBox.innerHTML = messages[type];
+      messageBox.style.display = "block";
+      circle.style.display = type === "calm" ? "block" : "none";
+      createHearts(8);
+    }
+
+    function createHearts(amount) {
+      for (let i = 0; i < amount; i++) {
+        setTimeout(() => {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.textContent = ["💖", "💕", "💗", "🤍", "🌷"][Math.floor(Math.random() * 5)];
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 8000);
+        }, i * 120);
+      }
+    }
+
+    setInterval(() => createHearts(1), 1400);
+  </script>
+</body>
+</html>
